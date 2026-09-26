@@ -163,8 +163,19 @@ section{padding:3.5rem 0 1rem}
 .contact-block ul{list-style:none; padding:0; margin:0; display:grid; gap:.5rem; font-family:var(--display); font-size:1.05rem}
 .contact-block a{color:var(--paper); overflow-wrap:anywhere}
 .contact-block a:hover{color:var(--marker)}
-.proj-fig{margin:0 0 1rem}
-.proj-fig img{display:block; max-width:100%; max-height:420px; width:auto; border:1px solid var(--rule); background:var(--panel)}
+.gallery{display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:1rem; margin-bottom:1.25rem}
+.proj-fig{margin:0}
+.zoom{display:block; width:100%; padding:0; border:1px solid var(--rule); background:var(--panel); cursor:zoom-in}
+.zoom img{display:block; width:100%; height:180px; object-fit:cover}
+.zoom:hover{border-color:var(--trace)}
+.lightbox{border:0; padding:0; background:transparent; max-width:min(96vw,1100px); max-height:94vh}
+.lightbox::backdrop{background:rgba(8,14,24,.85)}
+.lightbox img{display:block; max-width:100%; max-height:84vh; margin:0 auto; background:#fff}
+.lightbox p{font-family:var(--display); color:#E4EAF2; text-align:center; margin:.6rem 0 0; font-size:.92rem}
+.lightbox .close{position:absolute; top:.5rem; right:.5rem; font-family:var(--display); font-size:.9rem; font-weight:600;
+  background:#fff; color:#172338; border:0; padding:.45rem .8rem; cursor:pointer; border-radius:2px}
+.theatre{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1rem; margin-top:1rem}
+.theatre .zoom img{height:220px}
 .proj-fig figcaption{font-family:var(--display); font-size:.82rem; color:var(--ink-soft); margin-top:.4rem}
 footer{font-family:var(--display); font-size:.85rem; color:var(--ink-soft); padding:2rem 0 0}
 </style>
@@ -286,6 +297,11 @@ footer{font-family:var(--display); font-size:.85rem; color:var(--ink-soft); padd
           <ul class="plain">
             <li><span class="yr">2025</span><div><b>Treasurer, IEEE Student Branch GIKI</b><span class="note">Member since freshman year.</span></div></li>
             <li><span class="yr">2025</span><div><b>Vice-Captain, GIKI Badminton Team</b><span class="note">Inter-university competitions.</span></div></li>
+            <li><span class="yr">2024</span><div><b>CDES Annual Play '24</b><span class="note">Performed in the society's annual play at AHA Auditorium, GIKI, on 21 November 2024.</span>
+              <div class="theatre">
+                <figure class="proj-fig"><button type="button" class="zoom" data-src="play1.jpeg" data-cap="CDES Annual Play '24 poster."><img src="play1.jpeg" alt="CDES Annual Play '24 poster" loading="lazy"></button></figure>
+                <figure class="proj-fig"><button type="button" class="zoom" data-src="play2.jpeg" data-cap="Scenes from the performance."><img src="play2.jpeg" alt="Scenes from the annual play performance" loading="lazy"></button></figure>
+              </div></div></li>
             <li><span class="yr">2024</span><div><b>Volunteer, Hidayat Foundation</b><span class="note">Active member of the NGO.</span></div></li>
             <li><span class="yr">2020</span><div><b>School Captain, LDBE Tournament</b><span class="note">Runner-up in badminton.</span></div></li>
           </ul>
@@ -323,6 +339,11 @@ footer{font-family:var(--display); font-size:.85rem; color:var(--ink-soft); padd
   </main>
 </div>
 
+<dialog class="lightbox" id="lightbox" aria-label="Enlarged image">
+  <button type="button" class="close" id="lbClose">Close</button>
+  <img id="lbImg" alt="">
+  <p id="lbCap"></p>
+</dialog>
 <script>
 /* ---------- Projects data ---------- */
 const AREAS = {
@@ -331,12 +352,17 @@ const AREAS = {
 };
 const PROJECTS = [
   {t:"Portable Multi-Transducer Fetal Heart Rate Monitor", d:"May 2026", a:["bio","signals"], feature:"Final year project",
-   b:"Designed a multi-element ultrasound Doppler array that produces a broad beam pattern, so the fetal heart can be detected reliably without precise probe alignment. The wider anatomical coverage gives faster signal acquisition and makes the device noticeably easier and more reliable to use than a standard narrow-beam probe."},
+   imgs:[{s:"fyp1.jpeg",c:"The hardware: six-transducer probe, STM32 board, ADC boards and LCD monitor."},
+         {s:"fyp2.jpeg",c:"Project poster with the DSP flowchart, block diagram and results."},
+         {s:"fyp3.jpeg",c:"Project brochure summarising features, equations and applications."}],
+   b:"Designed a multi-element ultrasound Doppler array that produces a broad beam pattern, so the fetal heart can be detected reliably without precise probe alignment. Six transducers sit in a concave housing for stable, angle-independent signal capture even when the fetus moves. Signals are digitised by an ADS1256 ADC and processed in real time on an STM32L476: DC offset removal, full-wave rectification, Butterworth low-pass filtering and auto-correlation to find the heart-beat period, with the BPM shown on an LCD. Built in Keil uVision and STM32CubeMX with a team of four, advised by Dr. Memon Sajid and co-advised by Dr. Adnan Noor."},
   {t:"Fetal Heart Rate Analysis Using DSP and Machine Learning", d:"Dec 2025", a:["bio","signals","ai"],
    b:"Built a DSP pipeline for fetal heart rate analysis on public fetal–maternal signal datasets. Applied Butterworth band-pass filtering, error-signal subtraction and wavelet techniques to extract fetal BPM and suppress noise, with filters designed in MATLAB's FDA Tool. Compared several methods to find the most effective BPM extraction approach, then trained a Random Forest model to classify fetal health status."},
   {t:"Real-time Morse Code Encoder on Nexys A7", d:"Dec 2025", a:["digital"],
    b:"Developed a real-time Morse code encoder on an Artix-7 FPGA in synthesizable Verilog. A Moore finite state machine handles symbol sequencing with deterministic timing, while FIFO buffering and clock division manage asynchronous hardware inputs. Verified on hardware with an emphasis on RTL correctness and timing."},
   {t:"Assistive Communication System for Deaf/Mute and Blind Users", d:"May 2025", a:["embedded","ai"],
+   imgs:[{s:"jyc2.jpeg",c:"System flow: speech to LCD in one direction, gestures to audio in the other."},
+         {s:"jyc1.jpeg",c:"Raspberry Pi and webcam used for gesture recognition."}],
    b:"A two-way assistive device. Speech is converted to text with the Google Cloud API on a laptop and sent to an ESP32 for LCD display; in the other direction, a Raspberry Pi with Roboflow-trained models and OpenCV recognises gestures from a webcam and speaks them aloud. Supports real-time yes/no responses, with custom firmware and hardware changes to cope with difficult lighting and noise."},
   {t:"Linear Variable Differential Transformer (LVDT)", d:"May 2025", a:["power"],
    b:"Built and calibrated an LVDT prototype for ±3-inch displacement measurement using AC excitation and differential coil output. Derived its transfer function and verified linearity experimentally for precise motion sensing."},
@@ -349,12 +375,15 @@ const PROJECTS = [
   {t:"Ground Resistance Reduction for an Abandoned Site", d:"Dec 2024", a:["power"],
    b:"Reduced the ground resistance of an abandoned site to improve electrical safety. Used soil treatment, grounding-rod installation and resistance measurement to achieve a reliable grounding system."},
   {t:"Sun Tracking Solar Panel System", d:"May 2024", a:["embedded","power"],
-   img:"Solarpanel1.jpeg", cap:"Control circuit prototyped on a breadboard.",
+   imgs:[{s:"Solarpanel2.jpeg",c:"The tracker assembly: panel, light sensors, motor and electronics box."},
+         {s:"Solarpanel1.jpeg",c:"Control circuit prototyped on a breadboard."}],
    b:"A microcontroller reads light-dependent resistors to find the sun's position and drives a servo motor to keep the panel facing it, increasing energy capture where efficient generation matters."},
   {t:"Password Security System", d:"Dec 2023", a:["digital"],
+   imgs:[{s:"Password1.jpeg",c:"Circuit simulated in Proteus with XOR comparators and LED outputs."},
+         {s:"Password2.jpeg",c:"Circuit diagram, truth table and logical expression."}],
    b:"A password authentication system built from combinational logic. Simulated first in Proteus, then implemented with discrete ICs on a breadboard, with the aim of resisting unauthorised access."},
   {t:"Automatic Waste Sorting Machine", d:"May 2023", a:["embedded"],
-   img:"AWSM.png", cap:"Concept design of the segregation mechanism and bins.",
+   imgs:[{s:"AWSM.png",c:"Concept design of the segregation mechanism and bins."}],
    b:"An Arduino Uno reads ultrasonic, capacitive and inductive sensors to classify waste material, then a robotic arm pushes each item into the right bin, reducing manual sorting effort."},
   {t:"Arranging Random Data in Python", d:"May 2023", a:["ai"],
    b:"Organised random weight data into tables and charts with NumPy and Matplotlib and computed its descriptive statistics."}
@@ -370,6 +399,12 @@ function renderFilters(){
   filtersEl.innerHTML = keys.map(k =>
     `<button type="button" data-k="${k}" aria-pressed="${k===current}">${k==='all'?'All':AREAS[k]}</button>`).join('');
 }
+function gallery(list){
+  return `<div class="gallery">${list.map(im => `<figure class="proj-fig">
+    <button type="button" class="zoom" data-src="${im.s}" data-cap="${im.c}" aria-label="Enlarge image: ${im.c}">
+      <img src="${im.s}" alt="${im.c}" loading="lazy"></button>
+    <figcaption>${im.c}</figcaption></figure>`).join('')}</div>`;
+}
 function renderList(){
   const items = PROJECTS.filter(p => current==='all' || p.a.includes(current));
   countEl.textContent = `${items.length} project${items.length===1?'':'s'}` + (current==='all' ? '' : ` in ${AREAS[current]}`);
@@ -381,7 +416,7 @@ function renderList(){
         <span class="area">${p.a.map(k=>AREAS[k]).join(', ')}</span></span>
         <span class="toggle" aria-hidden="true">+</span>
       </summary>
-      <div class="body">${p.img ? `<figure class="proj-fig"><img src="${p.img}" alt="${p.t}" loading="lazy"><figcaption>${p.cap||""}</figcaption></figure>` : ""}<p>${p.b}</p></div>
+      <div class="body">${p.imgs ? gallery(p.imgs) : ""}<p>${p.b}</p></div>
     </details>`).join('');
 }
 filtersEl.addEventListener('click', e => {
@@ -391,6 +426,15 @@ filtersEl.addEventListener('click', e => {
 });
 renderFilters(); renderList();
 document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ---------- Lightbox ---------- */
+const lb = document.getElementById('lightbox'), lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap');
+document.addEventListener('click', e => {
+  const z = e.target.closest('.zoom');
+  if(z){ lbImg.src = z.dataset.src; lbImg.alt = z.dataset.cap; lbCap.textContent = z.dataset.cap;
+         lb.showModal ? lb.showModal() : window.open(z.dataset.src); return; }
+  if(e.target === lb || e.target.id === 'lbClose') lb.close();
+});
 
 /* ---------- Active nav link ---------- */
 const links = [...document.querySelectorAll('.side nav a')];
