@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Muhammad Sikander Yaqub — Electrical Engineer</title>
+<meta name="description" content="Portfolio of Muhammad Sikander Yaqub, electrical engineer (GIKI) working across embedded systems, signal processing and AI.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDF1F5; --panel:#F8FAFC; --ink:#172338; --ink-soft:#4A5870;
+  --rule:#C9D3DF; --trace:#2463A8; --marker:#C98A12; --grid:rgba(36,99,168,.09);
+  --display:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body:"Source Serif 4", Georgia, "Times New Roman", serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1827; --panel:#142133; --ink:#E4EAF2; --ink-soft:#9DABBF;
+    --rule:#2A3A52; --trace:#6FA8E8; --marker:#E6B04A; --grid:rgba(111,168,232,.08);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1827; --panel:#142133; --ink:#E4EAF2; --ink-soft:#9DABBF;
+  --rule:#2A3A52; --trace:#6FA8E8; --marker:#E6B04A; --grid:rgba(111,168,232,.08);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth; scroll-padding-top:calc(env(safe-area-inset-top,0px) + 24px)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--body);
+  font-size:1.0625rem; line-height:1.65; -webkit-font-smoothing:antialiased}
+a{color:var(--trace); text-underline-offset:3px}
+a:focus-visible, button:focus-visible, summary:focus-visible{outline:2px solid var(--marker); outline-offset:3px; border-radius:2px}
+img{max-width:100%}
+h1,h2,h3,h4{font-family:var(--display); line-height:1.15; margin:0}
+
+.layout{display:grid; grid-template-columns:minmax(220px,280px) minmax(0,1fr); max-width:1180px; margin:0 auto}
+@media (max-width:860px){.layout{grid-template-columns:1fr}}
+
+/* Sidebar */
+.side{position:sticky; top:env(safe-area-inset-top,0px); height:100vh; height:100dvh; padding:2.5rem 1.75rem;
+  border-right:1px solid var(--rule); display:flex; flex-direction:column; gap:2rem}
+@media (max-width:860px){.side{position:static; height:auto; border-right:0; border-bottom:1px solid var(--rule); padding:1.25rem 1.25rem}}
+.side .mono{font-family:var(--display); font-stretch:125%; font-weight:800; font-size:1.1rem; letter-spacing:-.01em}
+.side nav ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.15rem}
+@media (max-width:860px){.side nav ul{flex-direction:row; flex-wrap:wrap; gap:.25rem 1rem}}
+.side nav a{font-family:var(--display); font-size:.95rem; color:var(--ink-soft); text-decoration:none; display:inline-block; padding:.2rem 0}
+.side nav a:hover, .side nav a.active{color:var(--ink)}
+.side nav a.active{box-shadow:inset 3px 0 0 var(--trace); padding-left:.7rem}
+@media (max-width:860px){.side nav a.active{box-shadow:inset 0 -2px 0 var(--trace); padding-left:0}}
+.side .contact{margin-top:auto; font-family:var(--display); font-size:.88rem; display:flex; flex-direction:column; gap:.35rem}
+.side .contact a{color:var(--ink); text-decoration:none; overflow-wrap:anywhere}
+.side .contact a:hover{color:var(--trace)}
+@media (max-width:860px){.side .contact{display:none}}
+
+main{padding:0 clamp(1.25rem,4vw,3.5rem) 4rem; min-width:0}
+
+/* Hero */
+.hero{padding:clamp(2.5rem,7vw,5.5rem) 0 2.5rem; border-bottom:1px solid var(--rule)}
+.hero h1{font-stretch:62%; font-weight:800; font-size:clamp(3rem,10vw,7.2rem); letter-spacing:-.02em; line-height:.92}
+.hero h1 span{display:block}
+.scope{position:relative; margin:2rem 0 1.75rem; height:120px; border:1px solid var(--rule); background:
+  linear-gradient(var(--grid) 1px, transparent 1px) 0 0/100% 24px,
+  linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0/24px 100%, var(--panel)}
+.scope canvas{position:absolute; inset:0; width:100%; height:100%}
+.scope .readout{position:absolute; right:.75rem; bottom:.5rem; font-family:var(--display); font-size:.8rem; color:var(--ink-soft)}
+.scope .readout b{color:var(--ink); font-weight:700}
+.hero .lede{font-size:clamp(1.15rem,2vw,1.35rem); max-width:36em; margin:0; color:var(--ink)}
+.hero .actions{display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.75rem}
+.btn{font-family:var(--display); font-weight:600; font-size:.95rem; padding:.7rem 1.2rem; text-decoration:none;
+  border:1.5px solid var(--ink); color:var(--ink); border-radius:2px}
+.btn.primary{background:var(--ink); color:var(--paper)}
+.btn:hover{border-color:var(--trace); color:var(--trace)}
+.btn.primary:hover{background:var(--trace); color:#fff}
+
+/* Sections */
+section{padding:3.5rem 0 1rem}
+.sec-head{display:flex; align-items:baseline; gap:1rem; margin-bottom:1.75rem}
+.sec-head h2{font-size:clamp(1.6rem,3vw,2.1rem); font-weight:700; font-stretch:88%}
+.sec-head p{margin:0; color:var(--ink-soft); font-size:.98rem}
+.prose{max-width:38em}
+.prose p{margin:0 0 1rem}
+
+.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:0; border-top:1px solid var(--rule); margin-top:2rem}
+.facts div{padding:1rem 1rem 1rem 0; border-bottom:1px solid var(--rule)}
+.facts dt{font-family:var(--display); font-size:.85rem; color:var(--ink-soft)}
+.facts dd{margin:0; font-family:var(--display); font-weight:600; font-size:1.05rem}
+
+/* Timeline */
+.timeline{list-style:none; margin:0; padding:0; border-left:2px solid var(--rule)}
+.timeline > li{position:relative; padding:0 0 2.25rem 1.75rem}
+.timeline > li::before{content:""; position:absolute; left:-7px; top:.45rem; width:12px; height:12px; background:var(--paper); border:2px solid var(--trace); border-radius:50%}
+.timeline > li.now::before{background:var(--trace)}
+.when{font-family:var(--display); font-size:.88rem; color:var(--ink-soft); font-weight:500}
+.timeline h3{font-size:1.3rem; font-weight:700; margin:.15rem 0 .1rem}
+.role{font-family:var(--display); color:var(--trace); font-weight:600; font-size:.98rem}
+.timeline p{margin:.6rem 0 0; max-width:40em}
+.timeline ul.points{margin:.6rem 0 0; padding-left:1.1rem; max-width:40em}
+.timeline ul.points li{margin-bottom:.45rem}
+.product{margin-top:.75rem; font-family:var(--display); font-weight:600}
+.tags{display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.8rem; padding:0; list-style:none}
+.tags li{font-family:var(--display); font-size:.8rem; padding:.15rem .55rem; border:1px solid var(--rule); color:var(--ink-soft); border-radius:2px}
+
+/* Projects */
+.filters{display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1.5rem}
+.filters button{font-family:var(--display); font-size:.9rem; background:transparent; color:var(--ink-soft);
+  border:1px solid var(--rule); padding:.4rem .85rem; cursor:pointer; border-radius:2px}
+.filters button[aria-pressed="true"]{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.filters button:hover{border-color:var(--ink); color:var(--ink)}
+.filters button[aria-pressed="true"]:hover{color:var(--paper)}
+.count{font-family:var(--display); font-size:.88rem; color:var(--ink-soft); margin:0 0 .75rem}
+.proj-list{border-top:1px solid var(--rule)}
+.proj{border-bottom:1px solid var(--rule)}
+.proj summary{list-style:none; cursor:pointer; display:grid; grid-template-columns:6.5rem minmax(0,1fr) auto; gap:1rem; align-items:baseline; padding:1.1rem 0}
+.proj summary::-webkit-details-marker{display:none}
+.proj .date{font-family:var(--display); font-size:.88rem; color:var(--ink-soft)}
+.proj h3{font-size:1.12rem; font-weight:600}
+.proj .area{font-family:var(--display); font-size:.82rem; color:var(--trace); display:block; margin-top:.2rem; font-weight:500}
+.proj .toggle{font-family:var(--display); font-size:1.3rem; color:var(--ink-soft); line-height:1; transition:transform .2s}
+.proj[open] .toggle{transform:rotate(45deg)}
+.proj .body{padding:0 0 1.5rem 7.5rem; max-width:48em}
+.proj .body p{margin:0}
+.proj.feature h3{font-size:1.3rem}
+.proj.feature .badge{font-family:var(--display); font-size:.78rem; font-weight:600; color:var(--marker); margin-left:.5rem; white-space:nowrap}
+@media (max-width:600px){
+  .proj summary{grid-template-columns:minmax(0,1fr) auto}
+  .proj .date{grid-column:1/-1; margin-bottom:-.8rem}
+  .proj .body{padding-left:0}
+}
+@media (prefers-reduced-motion: reduce){.proj .toggle{transition:none}}
+
+/* Skills */
+.skills{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:2rem 2.5rem}
+.skills h3{font-size:1rem; font-weight:700; margin-bottom:.6rem; padding-bottom:.4rem; border-bottom:2px solid var(--ink)}
+.skills ul{list-style:none; margin:0; padding:0; font-family:var(--display); font-size:.96rem}
+.skills li{padding:.28rem 0; border-bottom:1px dotted var(--rule)}
+
+/* Education */
+.edu{display:grid; gap:0; border-top:1px solid var(--rule)}
+.edu > div{display:grid; grid-template-columns:9rem minmax(0,1fr) auto; gap:1rem; padding:1.1rem 0; border-bottom:1px solid var(--rule); align-items:baseline}
+.edu h3{font-size:1.1rem; font-weight:600}
+.edu .sub{color:var(--ink-soft); font-size:.98rem}
+.edu .score{font-family:var(--display); font-weight:700; font-size:1.05rem; text-align:right}
+@media (max-width:600px){.edu > div{grid-template-columns:1fr} .edu .score{text-align:left}}
+
+/* Activities */
+.two{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2.5rem}
+.two h3{font-size:1.1rem; font-weight:700; margin-bottom:.8rem}
+.plain{list-style:none; margin:0; padding:0}
+.plain li{display:grid; grid-template-columns:3.5rem minmax(0,1fr); gap:.75rem; padding:.6rem 0; border-bottom:1px solid var(--rule)}
+.plain .yr{font-family:var(--display); font-size:.88rem; color:var(--ink-soft); padding-top:.1rem}
+.plain b{font-family:var(--display); font-weight:600; display:block}
+.plain span.note{color:var(--ink-soft); font-size:.95rem}
+
+/* Contact */
+.contact-block{background:var(--ink); color:var(--paper); padding:clamp(1.75rem,4vw,3rem); margin-top:1.5rem}
+.contact-block h2{font-stretch:75%; font-weight:800; font-size:clamp(2rem,5vw,3.2rem); margin-bottom:.75rem}
+.contact-block p{max-width:34em; margin:0 0 1.5rem; opacity:.85}
+.contact-block ul{list-style:none; padding:0; margin:0; display:grid; gap:.5rem; font-family:var(--display); font-size:1.05rem}
+.contact-block a{color:var(--paper); overflow-wrap:anywhere}
+.contact-block a:hover{color:var(--marker)}
+footer{font-family:var(--display); font-size:.85rem; color:var(--ink-soft); padding:2rem 0 0}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="side">
+    <div class="mono">M. S. Yaqub</div>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#activities">Activities</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="contact">
+      <a href="mailto:msyaqub22@gmail.com">msyaqub22@gmail.com</a>
+      <a href="https://linkedin.com/in/msyaqub02" target="_blank" rel="noopener">linkedin.com/in/msyaqub02</a>
+      <span style="color:var(--ink-soft)">Lahore, Pakistan</span>
+    </div>
+  </aside>
+
+  <main>
+    <header class="hero" id="top">
+      <h1><span>Muhammad</span><span>Sikander Yaqub</span></h1>
+      <div class="scope" aria-hidden="true">
+        <canvas id="trace"></canvas>
+        <div class="readout">Doppler trace &nbsp;<b id="bpm">142</b> bpm</div>
+      </div>
+      <p class="lede">Electrical engineer from GIKI working where hardware meets software: ultra-wideband localization, ultrasound signal processing, FPGA design, and now voice-AI products in production.</p>
+      <div class="actions">
+        <a class="btn primary" href="resume.pdf" download>Download CV (PDF)</a>
+        <a class="btn" href="#projects">See projects</a>
+        <a class="btn" href="mailto:msyaqub22@gmail.com">Email me</a>
+      </div>
+    </header>
+
+    <section id="about">
+      <div class="sec-head"><h2>About</h2></div>
+      <div class="prose">
+        <p>I graduated in Electrical Engineering from Ghulam Ishaq Khan Institute (GIKI) in 2026. My degree took me through embedded firmware on STM32 and Nordic chips, communication systems from AM radio to visible-light data links, and a final-year project on a portable fetal heart rate monitor built around a multi-transducer ultrasound Doppler array.</p>
+        <p>Today I work as an AI/ML Developer at Raythorne, building and keeping reliable a full-stack hiring platform where a conversational voice agent runs sales interviews end to end. I enjoy the debugging side of engineering most: finding the race condition, the timing fault or the noisy signal that makes a system misbehave, and fixing it properly.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>Currently</dt><dd>AI/ML Developer, Raythorne</dd></div>
+        <div><dt>Degree</dt><dd>BSc Electrical Engineering</dd></div>
+        <div><dt>CGPA</dt><dd>3.12 / 4.00</dd></div>
+        <div><dt>Based in</dt><dd>Lahore, Pakistan</dd></div>
+      </dl>
+    </section>
+
+    <section id="experience">
+      <div class="sec-head"><h2>Experience</h2></div>
+      <ol class="timeline">
+        <li class="now">
+          <div class="when">July 2026 – present</div>
+          <h3>Raythorne</h3>
+          <div class="role">AI/ML Developer</div>
+          <div class="product">DealDNA, an AI-powered sales interview platform</div>
+          <ul class="points">
+            <li>Built and maintain a full-stack hiring platform (Next.js/TypeScript, NestJS/Prisma, PostgreSQL) that integrates an ElevenLabs Conversational AI voice agent to run structured sales interviews end to end.</li>
+            <li>Diagnosed and resolved production reliability issues in the Python orchestration service, including a race condition that silently dropped call analytics for short interviews.</li>
+            <li>Fixed misconfigured prompt overrides that caused incorrect interview behavior, restoring data integrity and interview correctness.</li>
+          </ul>
+          <ul class="tags"><li>Next.js</li><li>TypeScript</li><li>NestJS</li><li>Prisma</li><li>PostgreSQL</li><li>Python</li><li>ElevenLabs</li></ul>
+        </li>
+        <li>
+          <div class="when">July 2025</div>
+          <h3>Raythorne</h3>
+          <div class="role">Intern, embedded systems</div>
+          <p>Worked with the Qorvo DW3000 Chip Development Kit to explore ultra-wideband (UWB) communication and precise localization. Focused on low-level communication protocols, node-to-node synchronization and time-of-flight ranging, with extensive debugging and firmware analysis on nRF52840 microcontrollers in SEGGER Embedded Studio and Keil uVision.</p>
+          <ul class="tags"><li>Qorvo DW3000</li><li>UWB</li><li>nRF52840</li><li>SEGGER</li><li>Keil uVision</li></ul>
+        </li>
+        <li>
+          <div class="when">July – August 2024</div>
+          <h3>IoT Lab, Al-Khawarizmi Institute of Computer Science (KICS)</h3>
+          <div class="role">Intern</div>
+          <p>Developed and optimized IoT firmware for STM32 microcontrollers, working on sensor integration and data communication protocols to improve system reliability. Tested and debugged firmware and documented processes for the lab's future work.</p>
+          <ul class="tags"><li>STM32</li><li>STM32CubeIDE</li><li>Sensors</li><li>IoT protocols</li></ul>
+        </li>
+      </ol>
+    </section>
+
+    <section id="projects">
+      <div class="sec-head"><h2>Projects</h2><p>Select a project to read the details.</p></div>
+      <div class="filters" role="group" aria-label="Filter projects by area" id="filters"></div>
+      <p class="count" id="count" aria-live="polite"></p>
+      <div class="proj-list" id="projList"></div>
+    </section>
+
+    <section id="skills">
+      <div class="sec-head"><h2>Skills</h2></div>
+      <div class="skills">
+        <div><h3>Languages</h3><ul><li>C / C++</li><li>Python</li><li>TypeScript</li><li>Verilog HDL</li><li>Assembly</li></ul></div>
+        <div><h3>Web &amp; AI stack</h3><ul><li>Next.js</li><li>NestJS &amp; Prisma</li><li>PostgreSQL</li><li>ElevenLabs Conversational AI</li><li>OpenCV, Roboflow, Random Forest</li></ul></div>
+        <div><h3>Hardware</h3><ul><li>STM32</li><li>Nordic nRF52840</li><li>ESP32</li><li>Raspberry Pi &amp; Arduino</li><li>Artix-7 FPGA (Nexys A7)</li><li>Qorvo DW3000 UWB</li></ul></div>
+        <div><h3>Software &amp; tools</h3><ul><li>MATLAB (incl. FDA Tool)</li><li>Vivado, ModelSim</li><li>STM32CubeIDE, Keil uVision, SEGGER</li><li>Proteus, Multisim</li><li>ETAP, TIA Portal</li><li>VS Code</li></ul></div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="sec-head"><h2>Education</h2></div>
+      <div class="edu">
+        <div><span class="when">2022 – 2026</span><div><h3>BSc Electrical Engineering</h3><div class="sub">Ghulam Ishaq Khan Institute of Engineering Sciences and Technology, Topi</div></div><div class="score">3.12 / 4</div></div>
+        <div><span class="when">2020 – 2022</span><div><h3>FSc Pre-Engineering</h3><div class="sub">Forman Christian College, Lahore</div></div><div class="score">974 / 1100</div></div>
+        <div><span class="when">2018 – 2020</span><div><h3>Matric, Science Group</h3><div class="sub">The Cathedral High School, Lahore Cantt</div></div><div class="score">1029 / 1100</div></div>
+      </div>
+    </section>
+
+    <section id="activities">
+      <div class="sec-head"><h2>Activities &amp; awards</h2></div>
+      <div class="two">
+        <div>
+          <h3>Leadership &amp; community</h3>
+          <ul class="plain">
+            <li><span class="yr">2025</span><div><b>Treasurer, IEEE Student Branch GIKI</b><span class="note">Member since freshman year.</span></div></li>
+            <li><span class="yr">2025</span><div><b>Vice-Captain, GIKI Badminton Team</b><span class="note">Inter-university competitions.</span></div></li>
+            <li><span class="yr">2024</span><div><b>Volunteer, Hidayat Foundation</b><span class="note">Active member of the NGO.</span></div></li>
+            <li><span class="yr">2020</span><div><b>School Captain, LDBE Tournament</b><span class="note">Runner-up in badminton.</span></div></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Awards</h3>
+          <ul class="plain">
+            <li><span class="yr">2022</span><div><b>Certificate of Achievement</b><span class="note">Among the top scorers at Forman Christian College.</span></div></li>
+            <li><span class="yr">2021</span><div><b>Dalda Scholarship</b><span class="note">Awarded for the bachelor's degree.</span></div></li>
+            <li><span class="yr">2020</span><div><b>Position Holder</b><span class="note">The Cathedral High School.</span></div></li>
+            <li><span class="yr">2019</span><div><b>Star Award, Berkshire Global Education (UK)</b><span class="note">Communication and leadership skills.</span></div></li>
+          </ul>
+          <h3 style="margin-top:2rem">Workshops &amp; conferences</h3>
+          <ul class="plain">
+            <li><span class="yr">2024</span><div><b>Open-Source Processor Design Workshop</b></div></li>
+            <li><span class="yr">2023</span><div><b>2nd International Conference on Emerging Power and Technologies</b><span class="note">Held by IEEE.</span></div></li>
+            <li><span class="yr">2023</span><div><b>CHIP-DV Workshop</b></div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact-block">
+        <h2>Let's talk</h2>
+        <p>Open to roles and collaborations in embedded systems, signal processing and applied AI. Email is the fastest way to reach me.</p>
+        <ul>
+          <li><a href="mailto:msyaqub22@gmail.com">msyaqub22@gmail.com</a></li>
+          <li><a href="tel:+923224572355">+92 322 4572355</a></li>
+          <li><a href="https://linkedin.com/in/msyaqub02" target="_blank" rel="noopener">linkedin.com/in/msyaqub02</a></li>
+        </ul>
+      </div>
+      <footer>© <span id="yr">2026</span> Muhammad Sikander Yaqub</footer>
+    </section>
+  </main>
+</div>
+
+<script>
+/* ---------- Projects data ---------- */
+const AREAS = {
+  embedded:"Embedded & IoT", signals:"Signals & communications", digital:"Digital & FPGA",
+  power:"Power & instrumentation", ai:"AI & software", bio:"Biomedical"
+};
+const PROJECTS = [
+  {t:"Portable Multi-Transducer Fetal Heart Rate Monitor", d:"May 2026", a:["bio","signals"], feature:"Final year project",
+   b:"Designed a multi-element ultrasound Doppler array that produces a broad beam pattern, so the fetal heart can be detected reliably without precise probe alignment. The wider anatomical coverage gives faster signal acquisition and makes the device noticeably easier and more reliable to use than a standard narrow-beam probe."},
+  {t:"Fetal Heart Rate Analysis Using DSP and Machine Learning", d:"Dec 2025", a:["bio","signals","ai"],
+   b:"Built a DSP pipeline for fetal heart rate analysis on public fetal–maternal signal datasets. Applied Butterworth band-pass filtering, error-signal subtraction and wavelet techniques to extract fetal BPM and suppress noise, with filters designed in MATLAB's FDA Tool. Compared several methods to find the most effective BPM extraction approach, then trained a Random Forest model to classify fetal health status."},
+  {t:"Real-time Morse Code Encoder on Nexys A7", d:"Dec 2025", a:["digital"],
+   b:"Developed a real-time Morse code encoder on an Artix-7 FPGA in synthesizable Verilog. A Moore finite state machine handles symbol sequencing with deterministic timing, while FIFO buffering and clock division manage asynchronous hardware inputs. Verified on hardware with an emphasis on RTL correctness and timing."},
+  {t:"Assistive Communication System for Deaf/Mute and Blind Users", d:"May 2025", a:["embedded","ai"],
+   b:"A two-way assistive device. Speech is converted to text with the Google Cloud API on a laptop and sent to an ESP32 for LCD display; in the other direction, a Raspberry Pi with Roboflow-trained models and OpenCV recognises gestures from a webcam and speaks them aloud. Supports real-time yes/no responses, with custom firmware and hardware changes to cope with difficult lighting and noise."},
+  {t:"Linear Variable Differential Transformer (LVDT)", d:"May 2025", a:["power"],
+   b:"Built and calibrated an LVDT prototype for ±3-inch displacement measurement using AC excitation and differential coil output. Derived its transfer function and verified linearity experimentally for precise motion sensing."},
+  {t:"Wireless Voice Transmission with AM Modulation", d:"May 2025", a:["signals"],
+   b:"Designed AM voice transmission systems using transistor and diode modulators, LC oscillators and envelope detectors. Evaluated SNR, THD and demodulation stability with MATLAB analysis and oscilloscope measurements, investigated antenna tuning, distortion and synchronization issues, and proposed improvements through better filtering and digital modulation."},
+  {t:"LiFi System for Data Transmission and Reception", d:"Dec 2024", a:["signals","embedded"],
+   b:"Built a visible-light communication link for binary data. The transmitter uses a Python Tkinter GUI; the receiver processes illumination data from light sensors. Start/stop bit framing keeps transfers reliable, and calibrated light-intensity thresholds plus synchronization fixes kept transmission accurate under changing ambient light."},
+  {t:"Home-made Linear DC Machine", d:"Dec 2024", a:["power"],
+   b:"Independently designed and built a linear DC machine to demonstrate core electric-machine concepts. Handled the electromagnetic design, mechanical assembly, circuit integration and troubleshooting to get it working."},
+  {t:"Ground Resistance Reduction for an Abandoned Site", d:"Dec 2024", a:["power"],
+   b:"Reduced the ground resistance of an abandoned site to improve electrical safety. Used soil treatment, grounding-rod installation and resistance measurement to achieve a reliable grounding system."},
+  {t:"Sun Tracking Solar Panel System", d:"May 2024", a:["embedded","power"],
+   b:"A microcontroller reads light-dependent resistors to find the sun's position and drives a servo motor to keep the panel facing it, increasing energy capture where efficient generation matters."},
+  {t:"Password Security System", d:"Dec 2023", a:["digital"],
+   b:"A password authentication system built from combinational logic. Simulated first in Proteus, then implemented with discrete ICs on a breadboard, with the aim of resisting unauthorised access."},
+  {t:"Automatic Waste Sorting Machine", d:"May 2023", a:["embedded"],
+   b:"An Arduino Uno reads ultrasonic, capacitive and inductive sensors to classify waste material, then a robotic arm pushes each item into the right bin, reducing manual sorting effort."},
+  {t:"Arranging Random Data in Python", d:"May 2023", a:["ai"],
+   b:"Organised random weight data into tables and charts with NumPy and Matplotlib and computed its descriptive statistics."}
+];
+
+const filtersEl = document.getElementById('filters');
+const listEl = document.getElementById('projList');
+const countEl = document.getElementById('count');
+let current = 'all';
+
+function renderFilters(){
+  const keys = ['all', ...Object.keys(AREAS)];
+  filtersEl.innerHTML = keys.map(k =>
+    `<button type="button" data-k="${k}" aria-pressed="${k===current}">${k==='all'?'All':AREAS[k]}</button>`).join('');
+}
+function renderList(){
+  const items = PROJECTS.filter(p => current==='all' || p.a.includes(current));
+  countEl.textContent = `${items.length} project${items.length===1?'':'s'}` + (current==='all' ? '' : ` in ${AREAS[current]}`);
+  listEl.innerHTML = items.map((p,i) => `
+    <details class="proj${p.feature?' feature':''}"${p.feature && current==='all' ? ' open':''}>
+      <summary>
+        <span class="date">${p.d}</span>
+        <span><h3>${p.t}${p.feature?`<span class="badge">${p.feature}</span>`:''}</h3>
+        <span class="area">${p.a.map(k=>AREAS[k]).join(', ')}</span></span>
+        <span class="toggle" aria-hidden="true">+</span>
+      </summary>
+      <div class="body"><p>${p.b}</p></div>
+    </details>`).join('');
+}
+filtersEl.addEventListener('click', e => {
+  const b = e.target.closest('button'); if(!b) return;
+  current = b.dataset.k; renderFilters(); renderList();
+  filtersEl.querySelector(`[data-k="${current}"]`).focus();
+});
+renderFilters(); renderList();
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ---------- Active nav link ---------- */
+const links = [...document.querySelectorAll('.side nav a')];
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if(en.isIntersecting){
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + en.target.id));
+    }
+  });
+}, {rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('main section[id]').forEach(s => obs.observe(s));
+
+/* ---------- Doppler trace (one draw on load) ---------- */
+const cv = document.getElementById('trace'), ctx = cv.getContext('2d');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let progress = reduce ? 1 : 0, start = null;
+function beat(x){
+  // periodic heartbeat-like pulse: sharp peak + smaller echo
+  const period = 0.14, ph = (x % period) / period;
+  const g = (c,w,h) => h*Math.exp(-((ph-c)**2)/(2*w*w));
+  return g(.30,.018,1) - g(.36,.02,.35) + g(.62,.04,.22) + 0.04*Math.sin(x*90);
+}
+function draw(){
+  const r = cv.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  cv.width = r.width*dpr; cv.height = r.height*dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  const css = getComputedStyle(document.documentElement);
+  ctx.clearRect(0,0,r.width,r.height);
+  ctx.strokeStyle = css.getPropertyValue('--trace').trim();
+  ctx.lineWidth = 2; ctx.lineJoin = 'round'; ctx.beginPath();
+  const mid = r.height*0.6, amp = r.height*0.42, end = r.width*progress;
+  for(let px=0; px<=end; px+=1){
+    const y = mid - beat(px / r.width) * amp;
+    px===0 ? ctx.moveTo(px,y) : ctx.lineTo(px,y);
+  }
+  ctx.stroke();
+  {
+    const y = mid - beat(end / r.width) * amp;
+    ctx.fillStyle = css.getPropertyValue('--marker').trim();
+    ctx.beginPath(); ctx.arc(end, y, 3.5, 0, Math.PI*2); ctx.fill();
+  }
+}
+function tick(ts){
+  if(!start) start = ts;
+  progress = Math.min(1, (ts - start) / 2200);
+  draw();
+  if(progress < 1) requestAnimationFrame(tick);
+}
+reduce ? draw() : requestAnimationFrame(tick);
+addEventListener('resize', draw);
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+</script>
+</body>
+</html>
