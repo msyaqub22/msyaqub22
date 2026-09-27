@@ -193,11 +193,15 @@ footer{font-family:var(--display); font-size:.85rem; color:var(--ink-soft); padd
 @media (prefers-reduced-motion: reduce){.chip .led animate{display:none}}
 .cert{max-width:280px; margin-top:.75rem}
 .cert .zoom img{height:auto; aspect-ratio:auto; object-fit:contain}
+.avatar{width:120px; height:120px; border-radius:50%; background:url("PFP.jpeg") 50% 22%/190% auto no-repeat var(--panel); flex:none;
+  border:3px solid var(--panel); box-shadow:0 0 0 2px var(--trace); margin-bottom:-.75rem}
+@media (max-width:860px){.avatar{width:84px; height:84px; margin-bottom:-.5rem}}
 </style>
 </head>
 <body>
 <div class="layout">
   <aside class="side">
+    <div class="avatar" role="img" aria-label="Photo of Muhammad Sikander Yaqub"></div>
     <div class="mono">M. S. Yaqub</div>
     <nav aria-label="Sections">
       <ul>
